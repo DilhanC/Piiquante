@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   next()
 })
  
-app.use('/api/stuff', saucesRoutes)
+app.use('/api/sauces', saucesRoutes)
 app.use('/api/auth', usersRoutes)
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
