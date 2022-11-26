@@ -5,10 +5,11 @@ const saucesRoutes = require('./routes/sauces')
 const usersRoutes = require('./routes/users')
 const path = require('path')
 const cors = require('cors')
+require('dotenv').config()
 
 app.use(cors())
 
-mongoose.connect('mongodb+srv://DilhanC:YBLD5yV7rKOfRcXp@cluster0.e9v1s16.mongodb.net',
+mongoose.connect(`mongodb+srv://{process.env.DB_USER}:{process.env.DB_PASS}.mongodb.net`,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
