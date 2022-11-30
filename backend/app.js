@@ -6,14 +6,12 @@ const usersRoutes = require('./routes/users')
 const path = require('path')
 const cors = require('cors')
 require('dotenv').config()
-
 app.use(cors())
 
-mongoose.connect(`mongodb+srv://{process.env.DB_USER}:{process.env.DB_PASS}.mongodb.net`,
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'))
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority`,
+{ useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log('Connexion à MongoDB réussie !'))
+.catch(() => console.log('Connexion à MongoDB échouée !'))
 
 app.use(express.json())
 
