@@ -7,6 +7,23 @@ const path = require('path')
 const cors = require('cors')
 require('dotenv').config()
 app.use(cors())
+const mongoSanitize = require('express-mongo-sanitize')
+const rateLimit = require('express-rate-limit')
+const helmet = require("helmet")
+
+app.use(helmet())
+
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter)
+
+app.use(mongoSanitize())
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/?retryWrites=true&w=majority`,
 { useNewUrlParser: true, useUnifiedTopology: true })

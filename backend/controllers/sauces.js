@@ -31,7 +31,7 @@ exports.modifySauce = (req, res, next) => {
       if (sauce.userId !== req.auth.userId) {
         res.status(403).json({ message: "Vous n'êtes pas le proppriétaire de cette sauce"})
       } else {
-        // If file 
+        // If file
         const sauceObject = req.file ? {
           ...JSON.parse(req.body.sauce),
           imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
