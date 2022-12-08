@@ -11,3 +11,20 @@ const userSchema = mongoose.Schema({
 userSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('User', userSchema)
+
+// Email Validation
+function validateForm() {
+  let isValid = true
+  let emailInput = document.getElementById('email')
+  let emailError = document.getElementById('emailErrorMsg')
+  let emailRegEx = new RegExp("^[A-Za-z0-9._-]+@[A-Za-z0-9]+\.[A-Za-z]+$")
+  if(emailRegEx.test(emailInput.value)) {
+    emailError.textContent = ""
+  }
+  else {
+    emailError.textContent = "L'email est invalide"
+    isValid = false
+  }
+
+  return isValid
+}
